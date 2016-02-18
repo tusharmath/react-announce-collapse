@@ -30,7 +30,7 @@ e.getComponent = stream => stream
 e.getEscKey = window => Rx
     .Observable
     .fromEvent(window, 'keydown')
-    .pluck('event', 'keyCode')
+    .pluck('keyCode')
     .filter(x => x === 27)
 
 e.getClickTargets = window => Rx

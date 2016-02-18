@@ -46,3 +46,10 @@ test('getClickTargets', t => {
   const out = testObserver(e.getClickTargets(window))
   t.same(out, ['dom-node'])
 })
+
+test('getEscKey', t => {
+  const addEventListener = (ev, cb) => cb({keyCode: 27})
+  const window = {addEventListener}
+  const out = testObserver(e.getEscKey(window))
+  t.same(out, [27])
+})
