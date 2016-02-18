@@ -39,3 +39,10 @@ test('getDomNode', t => {
   t.ok(findDOMNode.calledWith(component))
   t.same(out, ['dom-node'])
 })
+
+test('getClickTargets', t => {
+  const addEventListener = (ev, cb) => cb({target: 'dom-node'})
+  const window = {addEventListener}
+  const out = testObserver(e.getClickTargets(window))
+  t.same(out, ['dom-node'])
+})

@@ -36,7 +36,7 @@ e.getEscKey = window => Rx
 e.getClickTargets = window => Rx
     .Observable
     .fromEvent(window, 'click')
-    .pluck('event', 'target')
+    .pluck('target')
 
 e.getDomNode = (ReactDOM, stream) => stream
     .filter(x => ['DID_MOUNT', 'DID_UPDATE'].indexOf(x.event) > -1)
