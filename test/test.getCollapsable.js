@@ -9,19 +9,14 @@ const testObserver = s => {
   return out
 }
 
-const hotties = (sh, count) => {
-  const hot = []
-  while(count-- !== 0){
-    hot.push(sh.createHotObservable())
-  }
-  return hot
-}
-
 test('esc', t => {
   const sh = new TestScheduler()
 
   const esc = sh.createHotObservable(onNext(210))
-  const [targets, node, component, state] = hotties(sh, 4)
+  const targets = sh.createHotObservable()
+  const node = sh.createHotObservable()
+  const component = sh.createHotObservable()
+  const state = sh.createHotObservable()
 
   const out = testObserver(e(esc, targets, node, component, state, true))
   sh.start()
