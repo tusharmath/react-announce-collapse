@@ -1,4 +1,9 @@
 const ReactDOM = require('react-dom')
-const collapsable = require('src/collapsable')
+const e = require('./src/index')
+const createDeclarative = require('react-announce').createDeclarative
 
-exports.collapsable = collapsable(ReactDOM, window)
+exports.collapsable = createDeclarative(
+  function (stream, dispose, params) {
+    dispose(e(e, ReactDOM, window, stream, params))
+  }
+)
