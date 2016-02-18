@@ -10,14 +10,17 @@
   "license": "ISC",
   "dependencies": {
     "argtoob": "^1.0.2",
-    "react-announce": "^1.0.2",
-    "rx": "^4.0.8"
+    "react-announce": "^1.0.2"
   },
   "devDependencies": {
     "ava": "^0.11.0",
     "cz-conventional-changelog": "^1.1.5",
     "semantic-release": "^4.3.5",
-    "sinon": "^1.17.3"
+    "sinon": "^1.17.3",
+    "rx": "^4.0.8"
+  },
+  "peerDependencies": {
+    "rx": "^4.0.8"
   },
   "config": {
     "commitizen": {
