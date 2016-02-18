@@ -12,7 +12,7 @@ e.dispatch = require('./dispatch')
 
 e.getSourceStreams = (ReactDOM, window, stream) => ({
     esc: e.getEscKey(window),
-    targets: e.getClickTargets(window),
+    target: e.getClickTargets(window),
     node: e.getDomNode(ReactDOM, stream),
     component: e.getComponent(stream),
     state: e.getState(stream)
