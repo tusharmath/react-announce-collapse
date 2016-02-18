@@ -1,17 +1,17 @@
 const Rx = require('rx')
 const targs = require('argtoob')
 
-module.exports = (esc, target, node, state, hasParent, skip) => Rx
+module.exports = (d, hasParent, skip) => Rx
     .Observable
     .merge(
-      esc.map(false),
-      target
-        .combineLatest(node, targs('target', 'node'))
+      d.esc.map(false),
+      d.target
+        .combineLatest(d.node, targs('target', 'node'))
         .filter(x => !hasParent(x.target, x.node))
         .map(false),
-      target
-        .combineLatest(node, targs('target', 'node'))
+      d.target
+        .combineLatest(d.node, targs('target', 'node'))
         .filter(x => hasParent(x.target, x.node))
-        .withLatestFrom(state, (a, b) => b)
+        .withLatestFrom(d.state, (a, b) => b)
         .map(x => skip ? x : !Boolean(x))
 )

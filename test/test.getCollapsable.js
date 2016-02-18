@@ -19,7 +19,7 @@ test('esc', t => {
   const node = sh.createHotObservable()
   const state = sh.createHotObservable()
 
-  const out = testObserver(e(esc, target, node, state, hasParent, true))
+  const out = testObserver(e({esc, target, node, state}, hasParent, true))
   sh.start()
   t.same(out, [false])
 })
@@ -38,7 +38,7 @@ test('target:inside', t => {
     onNext(215, false)
   )
 
-  const out = testObserver(e(esc, target, node, state, hasParent, false))
+  const out = testObserver(e({esc, target, node, state}, hasParent, false))
   sh.start()
   t.same(out, [false, true])
 })
@@ -54,7 +54,7 @@ test('target:outside', t => {
   const node = sh.createHotObservable(onNext(200, parent))
   const state = sh.createHotObservable()
 
-  const out = testObserver(e(esc, target, node, state, hasParent, false))
+  const out = testObserver(e({esc, target, node, state}, hasParent, false))
   sh.start()
   t.same(out, [false, false])
 })
@@ -73,7 +73,7 @@ test('target:inside:skipped', t => {
     onNext(215, false)
   )
 
-  const out = testObserver(e(esc, target, node, state, hasParent, true))
+  const out = testObserver(e({esc, target, node, state}, hasParent, true))
   sh.start()
   t.same(out, [true, false])
 })
