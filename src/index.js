@@ -1,25 +1,22 @@
 const Rx = require('rx')
-const createDeclarative = require('react-announce').createDeclarative
-const targs = require('argtoob')
-const getCollapsable = require('./getCollapsable')
 
-const e = module.exports = (ReactDOM, window) => createDeclarative(
-    function (stream, dispose, params) {
-      dispose(e.collapsable(ReactDOM, window, stream, params))
-    }
-)
-
-e.collapsable = (ReactDOM, window, stream, params) => {
-  const esc = e.getEscKey(window)
-  const targets = e.getClickTargets(window)
-  const node = e.getDomNode(ReactDOM, stream)
-  const component = e.getComponent(stream)
-  const state = e.getState(stream)
-
-  return getCollapsable(esc, targets, node, component, state).subscribe(e.dispatch)
+const e = module.exports = (d, ReactDOM, window, stream, params) => {
+  const s = d.getSourceStreams(ReactDOM, window, stream)
+  const currState = d.getCollapsable(s, d.hasParent, params.skip)
+  return d.dispatch(currState, s.component)
 }
 
-e.dispatch = x => x.component.dispatch('COLLAPSE', x.state)
+e.getCollapsable = require('./getCollapsable')
+e.hasParent = require('./hasParent')
+e.dispatch = require('./dispatch')
+
+e.getSourceStreams = (ReactDOM, window, stream) => ({
+    esc: e.getEscKey(window),
+    targets: e.getClickTargets(window),
+    node: e.getDomNode(ReactDOM, stream),
+    component: e.getComponent(stream),
+    state: e.getState(stream)
+})
 
 e.getState = stream => stream
     .filter(x => x.event === 'COLLAPSE')
