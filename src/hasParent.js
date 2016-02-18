@@ -1,6 +1,6 @@
 module.exports = (node, parent) => {
   while (node) {
-    if (parents === node) {
+    if (parent === node) {
       return true
     }
     node = node.parentElement
