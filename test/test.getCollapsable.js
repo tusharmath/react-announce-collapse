@@ -42,3 +42,19 @@ test('target:inside', t => {
   sh.start()
   t.same(out, [false, true])
 })
+
+test('target:outside', t => {
+  const sh = new TestScheduler()
+  const parent = {}
+  const esc = sh.createHotObservable()
+  const target = sh.createHotObservable(
+    onNext(210, {parent: {}}),
+    onNext(220, {parent: {}})
+  )
+  const node = sh.createHotObservable(onNext(200, parent))
+  const state = sh.createHotObservable()
+
+  const out = testObserver(e(esc, target, node, state, hasParent, true))
+  sh.start()
+  t.same(out, [false, false])
+})
