@@ -1,0 +1,30 @@
+{
+  "name": "react-announce-collapse",
+  "description": "a reusable decorator to create collapsable components",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "author": "Tushar Mathur <tusharmath@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "argtoob": "^1.0.2",
+    "react-announce": "^1.0.2",
+    "rx": "^4.0.8"
+  },
+  "devDependencies": {
+    "ava": "^0.11.0",
+    "cz-conventional-changelog": "^1.1.5",
+    "semantic-release": "^4.3.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tusharmath/react-announce-collapse.git"
+  }
+}
