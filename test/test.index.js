@@ -1,7 +1,14 @@
 import test from 'ava'
+import { TestScheduler, ReactiveTest } from 'rx'
 import { spy, stub } from 'sinon'
 import e from '../src/index'
 
+const {onNext} = ReactiveTest
+const testObserver = s => {
+  const out = []
+  s.subscribe(x => out.push(x))
+  return out
+}
 test(t => {
   const ReactDOM = {}
   const window = {}
@@ -19,4 +26,16 @@ test(t => {
   t.ok(getSourceStreams.calledWith(ReactDOM, window, stream))
   t.ok(getCollapsable.calledWith(sources, hasParent, params.skip))
   t.ok(dispatch.calledWith(currState, component))
+})
+
+test('getDomNode', t => {
+  const component = {}
+  const sh = new TestScheduler()
+  const findDOMNode = stub().returns('dom-node')
+  const ReactDOM = {findDOMNode}
+  const stream = sh.createHotObservable(onNext(210, {event: 'DID_MOUNT', component}))
+  const out = testObserver(e.getDomNode(ReactDOM, stream))
+  sh.start()
+  t.ok(findDOMNode.calledWith(component))
+  t.same(out, ['dom-node'])
 })

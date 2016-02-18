@@ -39,7 +39,6 @@ e.getClickTargets = window => Rx
     .pluck('event', 'target')
 
 e.getDomNode = (ReactDOM, stream) => stream
-    .filter(x => ['DID_MOUNT', 'DID_UPDATE'].includes(x.event))
-    .map(x => ReactDOM.findDOMNode(x))
-    .filter()
+    .filter(x => ['DID_MOUNT', 'DID_UPDATE'].indexOf(x.event) > -1)
+    .map(x => ReactDOM.findDOMNode(x.component))
     .distinctUntilChanged()
