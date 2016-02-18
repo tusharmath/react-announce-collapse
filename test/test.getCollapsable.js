@@ -9,16 +9,36 @@ const testObserver = s => {
   return out
 }
 
+const hasParent = (node, parent) => node.parent === parent
+
 test('esc', t => {
   const sh = new TestScheduler()
 
   const esc = sh.createHotObservable(onNext(210))
-  const targets = sh.createHotObservable()
+  const target = sh.createHotObservable()
   const node = sh.createHotObservable()
-  const component = sh.createHotObservable()
   const state = sh.createHotObservable()
 
-  const out = testObserver(e(esc, targets, node, component, state, true))
+  const out = testObserver(e(esc, target, node, state, hasParent, true))
   sh.start()
   t.same(out, [false])
+})
+
+test('target:inside', t => {
+  const sh = new TestScheduler()
+  const parent = {}
+  const esc = sh.createHotObservable()
+  const target = sh.createHotObservable(
+    onNext(210, {parent}),
+    onNext(220, {parent})
+  )
+  const node = sh.createHotObservable(onNext(200, parent))
+  const state = sh.createHotObservable(
+    onNext(201, true),
+    onNext(215, false)
+  )
+
+  const out = testObserver(e(esc, target, node, state, hasParent, true))
+  sh.start()
+  t.same(out, [false, true])
 })
