@@ -1,6 +1,7 @@
 const Rx = require('rx')
 const createDeclarative = require('react-announce').createDeclarative
 const targs = require('argtoob')
+const getCollapsable = require('./getCollapsable')
 
 const e = module.exports = (ReactDOM, window) => createDeclarative(
     function (stream, dispose, params) {
@@ -9,28 +10,16 @@ const e = module.exports = (ReactDOM, window) => createDeclarative(
 )
 
 e.collapsable = (ReactDOM, window, stream, params) => {
-  const esc = getEscKey(window)
-  const targets = getClickTargets(window)
-  const node = getDomNode(ReactDOM, stream)
-  const component = getComponent(stream)
-  const state = getState(stream)
+  const esc = e.getEscKey(window)
+  const targets = e.getClickTargets(window)
+  const node = e.getDomNode(ReactDOM, stream)
+  const component = e.getComponent(stream)
+  const state = e.getState(stream)
 
-  return getCollapsable(esc, targets, node, component, state)
+  return getCollapsable(esc, targets, node, component, state).subscribe(e.dispatch)
 }
 
-e.getCollapsable = (esc, targets, node, component, state) => Rx
-    .Observable
-    .merge(
-      esc.map(false),
-      targets
-        .combineLatest(node, targs('target', 'node'))
-        .skipWhile(x => hasParent(x.target, x.node))
-        .withLatestFrom(state, (a, b) => b)
-        .map(x => params.skip ? x : !!!x)
-        .distinctUntilChanged()
-        .withLatestFrom(component, targs('state', 'component'))
-        .subscribe(x => x.component.dispatch('COLLAPSE', x.state))
-)
+e.dispatch = x => x.component.dispatch('COLLAPSE', x.state)
 
 e.getState = stream => stream
     .filter(x => x.event === 'COLLAPSE')
@@ -57,13 +46,3 @@ e.getDomNode = (ReactDOM, stream) => stream
     .map(x => ReactDOM.findDOMNode(x))
     .filter()
     .distinctUntilChanged()
-
-e.hasParent = (node, parent) => {
-  while (node) {
-    if (parents === node) {
-      return true
-    }
-    node = node.parentElement
-  }
-  return false
-}
