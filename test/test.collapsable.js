@@ -9,6 +9,13 @@ const testObserver = s => {
   s.subscribe(x => out.push(x))
   return out
 }
+
+test(t => {
+  const mock = x => x
+  const out = e({collapsable: x => null }, 'react-dom', 'window')({}, mock)
+  t.is(out, mock)
+})
+
 test('init', t => {
   const ReactDOM = {}
   const window = {}
