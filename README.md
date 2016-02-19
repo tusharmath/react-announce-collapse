@@ -20,7 +20,7 @@ import {collapsable} from 'react-announce-collapse'
 
 const state = new Subject()
 @asStream(state)
-@collapsable({}) //defaultOptions: {skip: false}
+@collapsable
 class Dropdown extends Component {
   render () {
     return (<div>Hello World</div>)
