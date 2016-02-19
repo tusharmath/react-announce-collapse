@@ -12,7 +12,7 @@ const testObserver = s => {
 
 test(t => {
   const mock = x => x
-  const out = e({collapsable: x => null }, 'react-dom', 'window')({}, mock)
+  const out = e({collapsable: x => null }, 'react-dom', 'window')()(mock)
   t.is(out, mock)
 })
 
