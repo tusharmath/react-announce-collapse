@@ -1,7 +1,7 @@
 const Rx = require('rx')
 const targs = require('argtoob')
 
-module.exports = (d, hasParent, skip) => Rx
+module.exports = (d, hasParent) => Rx
     .Observable
     .merge(
       d.esc.map(false),
@@ -13,5 +13,5 @@ module.exports = (d, hasParent, skip) => Rx
         .combineLatest(d.node, targs('target', 'node'))
         .filter(x => hasParent(x.target, x.node))
         .withLatestFrom(d.state, (a, b) => b)
-        .map(x => skip ? x : !Boolean(x))
+        .map(x => !Boolean(x))
 )

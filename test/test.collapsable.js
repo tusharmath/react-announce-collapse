@@ -20,7 +20,6 @@ test('init', t => {
   const ReactDOM = {}
   const window = {}
   const stream = {}
-  const params = {skip: false}
   const component = {}
   const sources = {component}
   const hasParent = {}
@@ -28,10 +27,10 @@ test('init', t => {
   const getSourceStreams = stub().returns(sources)
   const getCollapsable = stub().returns(currState)
   const dispatch = spy()
-  e.init({getSourceStreams, getCollapsable, dispatch, hasParent}, ReactDOM, window, stream, params)
+  e.init({getSourceStreams, getCollapsable, dispatch, hasParent}, ReactDOM, window, stream)
 
   t.ok(getSourceStreams.calledWith(ReactDOM, window, stream))
-  t.ok(getCollapsable.calledWith(sources, hasParent, params.skip))
+  t.ok(getCollapsable.calledWith(sources, hasParent))
   t.ok(dispatch.calledWith(currState, component))
 })
 
