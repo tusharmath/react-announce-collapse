@@ -1,7 +1,7 @@
 import test from 'ava'
 import { TestScheduler, ReactiveTest } from 'rx'
 import { spy, stub } from 'sinon'
-import e from '../src/index'
+import e from '../src/collapsable'
 
 const {onNext} = ReactiveTest
 const testObserver = s => {
@@ -9,7 +9,14 @@ const testObserver = s => {
   s.subscribe(x => out.push(x))
   return out
 }
+
 test(t => {
+  const mock = x => x
+  const out = e({collapsable: x => null }, 'react-dom', 'window')({}, mock)
+  t.is(out, mock)
+})
+
+test('init', t => {
   const ReactDOM = {}
   const window = {}
   const stream = {}
@@ -21,7 +28,7 @@ test(t => {
   const getSourceStreams = stub().returns(sources)
   const getCollapsable = stub().returns(currState)
   const dispatch = spy()
-  e({getSourceStreams, getCollapsable, dispatch, hasParent}, ReactDOM, window, stream, params)
+  e.init({getSourceStreams, getCollapsable, dispatch, hasParent}, ReactDOM, window, stream, params)
 
   t.ok(getSourceStreams.calledWith(ReactDOM, window, stream))
   t.ok(getCollapsable.calledWith(sources, hasParent, params.skip))
