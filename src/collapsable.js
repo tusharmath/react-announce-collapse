@@ -1,6 +1,13 @@
 const Rx = require('rx')
+const createDeclarative = require('react-announce').createDeclarative
 
-const e = module.exports = (d, ReactDOM, window, stream, params) => {
+const e = module.exports = (d, ReactDOM, window) => createDeclarative(
+    function (stream, dispose, params) {
+      dispose(d.collapsable(d, ReactDOM, window, stream, params))
+    }
+)
+
+e.init = (d, ReactDOM, window, stream, params) => {
   const s = d.getSourceStreams(ReactDOM, window, stream)
   const currState = d.getCollapsable(s, d.hasParent, params.skip)
   return d.dispatch(currState, s.component)
