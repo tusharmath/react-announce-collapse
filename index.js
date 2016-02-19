@@ -1,5 +1,5 @@
 const ReactDOM = require('react-dom')
-const e = require('./src/index')
+const e = require('./src/collapsable')
 const createDeclarative = require('react-announce').createDeclarative
 
 exports.collapsable = createDeclarative(

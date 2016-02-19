@@ -1,7 +1,7 @@
 import test from 'ava'
 import { TestScheduler, ReactiveTest } from 'rx'
 import { spy, stub } from 'sinon'
-import e from '../src/index'
+import e from '../src/collapsable'
 
 const {onNext} = ReactiveTest
 const testObserver = s => {
