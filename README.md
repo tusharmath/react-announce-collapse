@@ -4,7 +4,41 @@
 
 Dispatches custom event `COLLAPSE` on the component stream.
 
+## Purpose
+The decorator auto listens to two events on `window` object via — 'click' and the 'keydown' events. Based on certain conditions *(as described below)* the `COLLAPSE` custom-event is fired on the component stream.
 
+- **CLICKs outside:** `false` is dispatched as an argument with the COLLAPSE event.
+- **CLICKs inside:** The current state is `toggled` and then dispatched.
+- **CLICKs inside of skipped:** By default the state is always toggled when the clicks happen anywhere inside the component, but sometimes it is necessary to not close the dropdown automatically eg. — Calendar Widget Dropdowns. In this case no value is dispatched.
+
+## Example
+```javascript
+import {Component} from 'React'
+import {Subject} from 'rx'
+import {asStream} from 'react-announce'
+import {collapsable} from 'react-announce-collapse'
+
+const state = new Subject()
+@asStream(state)
+@collapsable({}) //defaultOptions: {skip: false}
+class Dropdown extends Component {
+  render () {
+    return (<div>Hello World</div>)
+  }
+}
+
+state
+  .filter(x => x.event === 'COLLAPSE')
+  .map(x => x.args[0])
+  .subscribe(x => console.log(x))
+
+/* OUTPUT
+  false
+  true
+  false
+*/
+
+```
 
 
 
