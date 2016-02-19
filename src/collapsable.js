@@ -5,7 +5,7 @@ const e = module.exports = (d, ReactDOM, window) => createDeclarative(
     function (stream, dispose) {
       dispose(d.collapsable(d, ReactDOM, window, stream))
     }
-)
+)()
 
 e.init = (d, ReactDOM, window, stream) => {
   const s = d.getSourceStreams(ReactDOM, window, stream)
