@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "argtoob": "^1.0.2",
-    "react-announce": "^2.0.0"
+    "react-announce": "^3.0.0"
   },
   "devDependencies": {
     "ava": "^0.12.0",
