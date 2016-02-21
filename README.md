@@ -1,6 +1,7 @@
 # react-announce-collapse
 [![Build Status][travis-svg]][travis-build]
 [![npm][npm-version-svg]][npm]
+[![Coverage Status][coverage-svg]][coverage]
 
 Dispatches custom event `COLLAPSE` on the component stream.
 
@@ -48,3 +49,5 @@ state
 [travis-build]: https://travis-ci.org/tusharmath/react-announce-collapse
 [npm-version-svg]: https://img.shields.io/npm/v/react-announce-collapse.svg
 [npm]: https://www.npmjs.com/package/react-announce-collapse
+[coverage-svg]: https://coveralls.io/repos/github/tusharmath/react-announce-collapse/badge.svg?branch=master
+[coverage]: https://coveralls.io/github/tusharmath/react-announce-collapse?branch=master
