@@ -3,9 +3,9 @@ const createDeclarative = require('react-announce').createDeclarative
 
 const e = module.exports = (d, ReactDOM, window) => createDeclarative(
     function (stream, dispose) {
-      dispose(d.collapsable(d, ReactDOM, window, stream))
+      dispose(d.init(d, ReactDOM, window, stream))
     }
-)()
+  )()
 
 e.init = (d, ReactDOM, window, stream) => {
   const s = d.getSourceStreams(ReactDOM, window, stream)

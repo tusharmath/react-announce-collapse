@@ -11,9 +11,15 @@ const testObserver = s => {
 }
 
 test(t => {
-  const mock = x => x
-  const out = e({collapsable: x => null }, 'react-dom', 'window')(mock)
-  t.is(out, mock)
+  class Mock {
+    componentWillMount () {
+
+    }
+  }
+  const out = e({init: x => null }, 'react-dom', 'window')(Mock)
+  const m = new Mock()
+  m.componentWillMount()
+  t.is(out, Mock)
 })
 
 test('init', t => {
