@@ -10,27 +10,27 @@ The decorator auto listens to two events on `window` object via — 'click' and 
 
 - **CLICKs outside:** `false` is dispatched as an argument with the COLLAPSE event.
 - **CLICKs inside:** The current state is `toggled` and then dispatched.
-- **CLICKs inside of skipped:** By default the state is always toggled when the clicks happen anywhere inside the component, but sometimes it is necessary to not close the dropdown automatically eg. — Calendar Widget Dropdowns. In this case no value is dispatched.
 
 ## Example
 ```javascript
 import {Component} from 'React'
 import {Subject} from 'rx'
 import {asStream} from 'react-announce'
-import {collapsable} from 'react-announce-collapse'
+import {collapsable, isActive} from 'react-announce-collapse'
 
 const state = new Subject()
-@asStream(state)
+
+
 @collapsable
+@asStream(state) // observer is required for the decorator to dispatch the COLLAPSE event on it
 class Dropdown extends Component {
   render () {
     return (<div>Hello World</div>)
   }
 }
 
-state
-  .filter(x => x.event === 'COLLAPSE')
-  .map(x => x.args[0])
+// isActive() is a utility method that returns the state (Boolean) as an Observable
+isActive(state)
   .subscribe(x => console.log(x))
 
 /* OUTPUT
