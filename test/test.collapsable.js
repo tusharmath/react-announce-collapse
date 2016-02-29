@@ -12,9 +12,7 @@ const testObserver = s => {
 
 test(t => {
   class Mock {
-    componentWillMount () {
-
-    }
+    componentWillMount() {}
   }
   const out = e({init: x => null }, 'react-dom', 'window')(Mock)
   const m = new Mock()
