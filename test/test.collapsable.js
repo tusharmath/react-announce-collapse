@@ -63,3 +63,16 @@ test('getEscKey', t => {
   const out = testObserver(e.getEscKey(window))
   t.same(out, [27])
 })
+
+
+test('getState', t => {
+  const sh = new TestScheduler()
+  const stream = sh.createHotObservable(
+    onNext(210, {event: 'COLLAPSE', args: ['A']}),
+    onNext(215, {event: 'COLLAPSE', args: ['A']}),
+    onNext(220, {event: 'COLLAPSE', args: ['B']})
+  )
+  const out = testObserver(e.getState(stream))
+  sh.start()
+  t.same(out, [false, 'A', 'B'])
+})

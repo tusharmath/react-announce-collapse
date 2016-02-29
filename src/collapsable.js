@@ -29,6 +29,7 @@ e.getState = stream => stream
     .filter(x => x.event === 'COLLAPSE')
     .map(x => x.args[0])
     .distinctUntilChanged()
+    .startWith(false)
 
 e.getComponent = stream => stream
     .pluck('component')
