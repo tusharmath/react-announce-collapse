@@ -17,7 +17,7 @@
     "coveralls": "^2.11.6",
     "nyc": "^7.0.0",
     "cz-conventional-changelog": "^1.1.5",
-    "semantic-release": "^4.3.5",
+    "semantic-release": "^6.3.6",
     "sinon": "^1.17.3",
     "rx": "^4.0.8"
   },
