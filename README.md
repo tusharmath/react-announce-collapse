@@ -1,4 +1,6 @@
 # react-announce-collapse
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/tusharmath/react-announce-collapse.svg)](https://greenkeeper.io/)
 [![Build Status][travis-svg]][travis-build]
 [![npm][npm-version-svg]][npm]
 [![Coverage Status][coverage-svg]][coverage]
